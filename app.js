@@ -7,6 +7,7 @@ const {createEmp } = require('./lib/db-items');
 const {createRole } = require('./lib/db-items');
 const {createDept } = require('./lib/db-items');
 const {view_Dept } = require('./lib/db-items');
+const {view_Role} = require('./lib/db-items');
 
 
 
@@ -32,22 +33,16 @@ const startQuestion = async () => {
     else if (task === 'View departments') {
       await view_Dept();
     }
+    else if (task === 'View roles') {
+      await view_Role();
+    }
   else {
 
 
     connection.end();
   }
 
-  // switch (task) {
-  //   case 'Add employees':
-  //     addEmployees();
-  //     break;
-  //   case '':
-  //     addDepartment();
-  //     break;
-  //   default:
-  //     break;
-  // }
+
 };
 
 async function addEmployees() {
