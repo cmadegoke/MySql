@@ -8,6 +8,8 @@ const {createRole } = require('./lib/db-items');
 const {createDept } = require('./lib/db-items');
 const {view_Dept } = require('./lib/db-items');
 const {view_Role} = require('./lib/db-items');
+const {view_Emp} = require('./lib/db-items');
+
 
 
 
@@ -36,12 +38,14 @@ const startQuestion = async () => {
     else if (task === 'View roles') {
       await view_Role();
     }
+    else if (task === 'View employees') {
+      await view_Emp();
+    }
   else {
 
 
     connection.end();
   }
-
 
 };
 
