@@ -1,11 +1,13 @@
 const inquirer = require('inquirer');
-// require('console.table');
 
-// import connection
 const connection = require('./Config/connection');
 
 // import functions to work with database
 const {createEmp } = require('./lib/db-items');
+const {createRole } = require('./lib/db-items');
+const {createDept } = require('./lib/db-items');
+
+
 
 // import arrays of questions for inquirer prompts
 const { startquestions, createAddEmployees,createAddDepartments,createAddRoles} = require('./lib/prompts');
@@ -20,8 +22,15 @@ const startQuestion = async () => {
      await addEmployees();
     
   } else if (task === 'Add departments') {
-    await createAddDepartments();
-  } else {
+    await addDepartments();
+
+  } 
+    else if (task === 'Add roles') {
+  await addRoles();
+    }
+  else {
+
+
     connection.end();
   }
 
@@ -43,18 +52,28 @@ async function addEmployees() {
   createEmp({
     first_name: firstName,
     last_name: lastName
-  })//what goes in here????
+  })
   
-}
-async function createAddDepartments() {
-  const { Dept } = await inquirer.prompt(createAddDepartments);
+};
+async function addDepartments() {
+  const {Dept} = await inquirer.prompt(createAddDepartments);
   // add to the database here!
-  createdept({
-    first_name: firstName,
-    last_name: lastName
-  })//what goes in here????
+  createDept({
+    dept_name: Dept,
+  })
   
-}
+};
+async function addRoles() {
+  const {Role } = await inquirer.prompt(createAddRoles);
+  // add to the database here!
+  createRole({
+    Title : title,
+    Salary : salary,
+    DeptID : department_id
+
+  })
+  
+};
 
 
 
