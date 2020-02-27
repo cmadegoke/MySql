@@ -55,7 +55,7 @@ const startQuestion = async () => {
 
     const { emp } = await inquirer.prompt(newPrompt)
     
-    const empID = results.filter(e => emp === `${e.first_name} ${e.last_name} ${e.role_id}`)[0].id;
+    const empID = results.filter(e => emp === `${e.first_name} ${e.last_name}`)[0].id;
     
     const { RoleId } =  await inquirer.prompt([
       {
