@@ -25,8 +25,7 @@ const { startquestions, createAddEmployees, createAddDepartments, createAddRoles
 const startQuestion = async () => {
   // destructure response object out of first prompt, using await means no .then() needed
   const { task } = await inquirer.prompt(startquestions);
-  // console.log(task)
-  // depending on the answer, do an action
+  
   if (task === 'Add employees') {
     await addEmployees();
 
@@ -81,34 +80,33 @@ const startQuestion = async () => {
 };
 
 async function addEmployees() {
-  const { firstName, lastName } = await inquirer.prompt(createAddEmployees);
-  // add to the database here!
+  const { firstName, lastName, RoleId, ManagerId } = await inquirer.prompt(createAddEmployees);
+  
   createEmp({
     first_name: firstName,
-    last_name: lastName
+    last_name: lastName,
+    role_id: RoleId,
+    manager_id:  ManagerId
+
   })
-  console.log(createAddEmployees);
 
 };
 async function addDepartments() {
   const { Dept } = await inquirer.prompt(createAddDepartments);
-  // add to the database here!
   createDept({
     dept_name: Dept,
   })
-  console.log(createAddDepartments);
+  
 
 };
 async function addRoles() {
-  const { title, salary, department_id } = await inquirer.prompt(createAddRoles);
-  // add to the database here!
+  const { Title, Salary, DeptID } = await inquirer.prompt(createAddRoles);
   createRole({
-    Title: title,
-    Salary: salary,
-    DeptID: department_id
+    title: Title,
+    salary: Salary,
+    department_id: DeptID
   })
 
-  console.log(createAddRoles);
 };
 
 
