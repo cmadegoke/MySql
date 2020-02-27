@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 
+
 const connection = require('./Config/connection');
 
 // import functions to work with database
@@ -9,6 +10,10 @@ const {createDept } = require('./lib/db-items');
 const {view_Dept } = require('./lib/db-items');
 const {view_Role} = require('./lib/db-items');
 const {view_Emp} = require('./lib/db-items');
+const {Update_Emp} = require('./lib/db-items');
+const {Update_Emp_Role_Id} = require('./lib/db-items');
+
+
 
 
 
@@ -20,7 +25,7 @@ const { startquestions, createAddEmployees,createAddDepartments,createAddRoles} 
 const startQuestion = async () => {
   // destructure response object out of first prompt, using await means no .then() needed
   const { task } = await inquirer.prompt(startquestions);
-  console.log(task)
+  // console.log(task)
   // depending on the answer, do an action
   if (task === 'Add employees') {
      await addEmployees();
@@ -34,12 +39,28 @@ const startQuestion = async () => {
     }
     else if (task === 'View departments') {
       await view_Dept();
+      
     }
     else if (task === 'View roles') {
       await view_Role();
+      
     }
     else if (task === 'View employees') {
-      await view_Emp();
+      const emps = await view_Emp();
+      // console.log(emps)
+     
+    }
+    else if (task === 'Update employee roles') {
+      const {newPrompt, results} = await Update_Emp();
+      console.log(results)
+
+      const {emp} = await inquirer.prompt(newPrompt)
+      
+      const empID = results.filter(e => emp === `${emp.first_name} ${emp.last_name} ${emp.role_id}`)[0];
+
+      const role_id  = results.find(({ id }) => id === parseInt(role_id));
+
+     
     }
   else {
 
@@ -56,6 +77,7 @@ async function addEmployees() {
     first_name: firstName,
     last_name: lastName
   })
+  console.log(createAddEmployees);
   
 };
 async function addDepartments() {
@@ -64,6 +86,7 @@ async function addDepartments() {
   createDept({
     dept_name: Dept,
   })
+  console.log(createAddDepartments);
   
 };
 async function addRoles() {
@@ -75,7 +98,10 @@ async function addRoles() {
     DeptID : department_id
 
   })
+
+  console.log(createAddRoles);
 };
+
 
 
 
