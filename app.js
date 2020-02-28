@@ -36,6 +36,7 @@ const startQuestion = async () => {
   else if (task === 'Add roles') {
     await addRoles();
   }
+
   else if (task === 'View departments') {
     await view_Dept();
 
@@ -51,7 +52,7 @@ const startQuestion = async () => {
   }
   else if (task === 'Update employee roles') {
     const { newPrompt, results } = await Update_Emp();
-    console.log(results)
+    
 
     const { emp } = await inquirer.prompt(newPrompt)
     
@@ -69,15 +70,18 @@ const startQuestion = async () => {
     Update_Emp_Role_Id(empID,RoleId)
     view_Emp()
 
-
   }
   else {
 
-
     connection.end();
+    process.exit();
   }
-
+  setTimeout(() => {
+    startQuestion()
+  }, 1000)
 };
+
+
 
 async function addEmployees() {
   const { firstName, lastName, RoleId, ManagerId } = await inquirer.prompt(createAddEmployees);
@@ -91,14 +95,17 @@ async function addEmployees() {
   })
 
 };
+
+
 async function addDepartments() {
   const { Dept } = await inquirer.prompt(createAddDepartments);
   createDept({
     dept_name: Dept,
   })
-  
 
 };
+
+
 async function addRoles() {
   const { Title, Salary, DeptID } = await inquirer.prompt(createAddRoles);
   createRole({
@@ -114,8 +121,15 @@ async function addRoles() {
 
 
 
+
 connection.connect(err => {
   if (err) throw err;
   console.log('Connected to DB');
   startQuestion().catch(e => console.log(e));
 });
+
+
+
+
+
+module.exports = startquestions;

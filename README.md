@@ -35,6 +35,7 @@ Build a command-line application that at a minimum allows the user to:
   * View departments, roles, employees
 
   * Update employee roles
+  DELETE  FROM  employes WHERE id = ? "
 
 Bonus points if you're able to:
 
